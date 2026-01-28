@@ -1,0 +1,82 @@
+# ============================================
+# PERSONAL DEVELOPMENT APP - REQUIREMENTS.TXT
+# Latest Stable Versions - January 2026
+# Updated: January 29, 2026
+# Python 3.14+ Compatible Versions
+# ============================================
+
+# Django Framework & REST API
+Django==5.0.1
+djangorestframework==3.14.0
+djangorestframework-simplejwt==5.5.1
+django-cors-headers==4.3.1
+django-extensions==3.2.3
+django-filter==24.1
+drf-spectacular==0.27.0
+
+# Environment & Configuration
+python-decouple==3.8
+python-dotenv==1.0.0
+
+# Database & ORM
+psycopg==3.1.14
+
+# Async & Task Queue
+celery==5.3.4
+redis==5.0.1
+kombu==5.3.7
+
+# Server & Deployment
+gunicorn==21.2.0
+whitenoise==6.6.0
+
+# Testing & Quality
+pytest==7.4.3
+pytest-django==4.7.0
+pytest-cov==4.1.0
+factory-boy==3.3.0
+faker==21.0.0
+freezegun==1.5.1
+
+# Code Quality & Formatting
+black==24.1.1
+flake8==7.0.0
+isort==5.13.2
+pylint==3.0.3
+pre-commit==3.6.0
+
+# Monitoring & Logging
+python-json-logger==2.0.7
+
+# API Documentation
+openapi-spec-validator==0.7.1
+
+# Utilities
+pytz==2024.1
+requests==2.31.0
+Pillow==10.1.0
+
+# ============================================
+# OPTIONAL - AI/ML (Phase 3+)
+# ============================================
+# Uncomment when implementing AI features
+# numpy==1.26.3
+# scikit-learn==1.3.2
+# tensorflow==2.15.0
+# pandas==2.1.3
+
+# ============================================
+# NOTES
+# ============================================
+# Last updated: January 29, 2026
+# Python version: 3.14+
+# Django version: 5.0.1 (latest stable)
+# Using psycopg (3.x) instead of psycopg2 (async support)
+# 
+# To update all packages to latest versions:
+# pip list --outdated
+# pip install --upgrade -r requirements.txt
+#
+# To freeze current environment:
+# pip freeze > requirements-frozen.txt
+

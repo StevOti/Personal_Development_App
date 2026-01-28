@@ -1,0 +1,160 @@
+# ============================================
+# PERSONAL DEVELOPMENT APP - GITIGNORE
+# Only README.md is public
+# All other .md files stay private/local
+# ============================================
+
+# ============================================
+# DOCUMENTATION - PRIVATE (Keep Local Only)
+# ============================================
+# All markdown files are private EXCEPT README.md
+docs/
+PROJECT_SUMMARY.md
+DOCUMENTATION_INDEX.md
+START_HERE.md
+GIT_SETUP_NOTES.md
+
+# ============================================
+# ENVIRONMENT & SECRETS (Never Commit)
+# ============================================
+.env
+.env.local
+.env.*.local
+.env.production
+.env.staging
+.env.development
+.secrets/
+*.pem
+*.key
+
+# ============================================
+# PYTHON
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+venv/
+ENV/
+env/
+.venv
+env.bak/
+venv.bak/
+
+# ============================================
+# NODE/FRONTEND
+# ============================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.eslintcache
+.node_repl_history
+*.tsbuildinfo
+dist/
+build/
+.next/
+out/
+
+# ============================================
+# IDE & EDITORS
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.sublime-workspace
+*.sublime-project
+.env.local.php
+*.iml
+*.iws
+*.ipr
+
+# ============================================
+# OS
+# ============================================
+.DS_Store
+.AppleDouble
+.LSOverride
+*.msix
+*.msixbundle
+*.appxbundle
+*.appx
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ============================================
+# TESTING
+# ============================================
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.tox/
+.hypothesis/
+*.cover
+*.py,cover
+coverage.xml
+
+# ============================================
+# DATABASE
+# ============================================
+db.sqlite3
+db.sqlite3-journal
+*.db
+*.sqlite
+*.sqlite3
+
+# ============================================
+# DOCKER
+# ============================================
+docker-compose.override.yml
+.dockerignore
+
+# ============================================
+# LOGGING
+# ============================================
+*.log
+logs/
+
+# ============================================
+# MISC
+# ============================================
+.cache/
+*.tmp
+.vscode-test
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+.turbo/
+
+# ============================================
+# PUBLIC README - ALWAYS COMMITTED
+# ============================================
+!README.md
