@@ -13,6 +13,11 @@ PROJECT_SUMMARY.md
 DOCUMENTATION_INDEX.md
 START_HERE.md
 GIT_SETUP_NOTES.md
+DAY1_COMPLETION.md
+TESTING_GUIDE.md
+DELIVERY_MANIFEST.md
+DAY1_PLAN.md
+requirements-day1.txt
 
 # ============================================
 # ENVIRONMENT & SECRETS (Never Commit)
