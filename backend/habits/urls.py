@@ -2,9 +2,10 @@
 URL routing for habits app.
 Week 2: Will contain CRUD endpoints for habits, habit logs, and suggestions.
 """
+
 from django.urls import path
 
-app_name = 'habits'
+app_name = "habits"
 
 urlpatterns = [
     # Habit CRUD endpoints will be added in Week 2
