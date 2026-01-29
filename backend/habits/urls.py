@@ -1,16 +1,18 @@
 """
 URL routing for habits app.
-Week 2: Will contain CRUD endpoints for habits, habit logs, and suggestions.
+Week 2: CRUD endpoints for habits and habit logs.
 """
-from django.urls import path
 
-app_name = 'habits'
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from habits.views import HabitViewSet, HabitLogViewSet
+
+app_name = "habits"
+
+router = DefaultRouter()
+router.register(r"", HabitViewSet, basename="habit")
+router.register(r"logs", HabitLogViewSet, basename="habitlog")
 
 urlpatterns = [
-    # Habit CRUD endpoints will be added in Week 2
-    # path('', HabitListCreateView.as_view(), name='habit-list'),
-    # path('<int:pk>/', HabitDetailView.as_view(), name='habit-detail'),
-    # path('<int:pk>/logs/', HabitLogCreateView.as_view(), name='habit-log'),
-    # path('daily/', DailyHabitsView.as_view(), name='daily-habits'),
-    # path('suggestions/', HabitSuggestionsView.as_view(), name='suggestions'),
+    path("", include(router.urls)),
 ]
