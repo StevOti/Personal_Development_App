@@ -19,6 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('core.urls')),  # Authentication endpoints
+    path('api/auth/', include('core.urls')),  # Authentication endpoints
+    path('api/habits/', include('habits.urls')),  # Habit tracking endpoints
 ]
 
