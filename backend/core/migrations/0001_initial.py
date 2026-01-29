@@ -15,19 +15,47 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='UserProfile',
+            name="UserProfile",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('target_identity', models.TextField(blank=True, default='', help_text='User\'s target identity statement (e.g., "I am a healthy person")')),
-                ('onboarding_completed', models.BooleanField(default=False, help_text='Has the user completed the onboarding flow?')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='profile', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "target_identity",
+                    models.TextField(
+                        blank=True,
+                        default="",
+                        help_text='User\'s target identity statement (e.g., "I am a healthy person")',
+                    ),
+                ),
+                (
+                    "onboarding_completed",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Has the user completed the onboarding flow?",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="profile",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'User Profile',
-                'verbose_name_plural': 'User Profiles',
-                'ordering': ['-created_at'],
+                "verbose_name": "User Profile",
+                "verbose_name_plural": "User Profiles",
+                "ordering": ["-created_at"],
             },
         ),
     ]
