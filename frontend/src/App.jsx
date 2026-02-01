@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { Navigation } from './components/Navigation';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { HabitsPage } from './pages/HabitsPage';
@@ -13,6 +14,7 @@ function App() {
   return (
     <Router>
       <AuthProvider>
+        <Navigation />
         <Routes>
           {/* Public Routes */}
           <Route path="/login" element={<LoginPage />} />
