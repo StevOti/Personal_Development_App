@@ -76,4 +76,11 @@ export const habitAPI = {
   stats: (id) => api.get(`/habits/${id}/stats/`),
 };
 
+// Analytics endpoints
+export const analyticsAPI = {
+  overview: () => api.get('/habits/analytics/overview/'),
+  weekly: () => api.get('/habits/analytics/weekly/'),
+  monthly: () => api.get('/habits/analytics/monthly/'),
+};
+
 export default api;

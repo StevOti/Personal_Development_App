@@ -56,9 +56,14 @@ export function HabitsPage() {
     <div className="habits-container">
       <div className="habits-header">
         <h1>My Habits</h1>
-        <Link to="/habits/create" className="btn btn-primary">
-          Create Habit
-        </Link>
+        <div className="header-actions">
+          <Link to="/analytics" className="btn btn-secondary">
+            📊 Analytics
+          </Link>
+          <Link to="/habits/create" className="btn btn-primary">
+            Create Habit
+          </Link>
+        </div>
       </div>
 
       {error && <div className="error-message">{error}</div>}

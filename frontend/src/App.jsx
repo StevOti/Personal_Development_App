@@ -6,6 +6,7 @@ import { RegisterPage } from './pages/RegisterPage';
 import { HabitsPage } from './pages/HabitsPage';
 import { CreateHabitPage } from './pages/CreateHabitPage';
 import { HabitDetailPage } from './pages/HabitDetailPage';
+import AnalyticsPage from './pages/AnalyticsPage';
 import './index.css';
 
 function App() {
@@ -39,6 +40,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <HabitDetailPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/analytics"
+            element={
+              <ProtectedRoute>
+                <AnalyticsPage />
               </ProtectedRoute>
             }
           />
