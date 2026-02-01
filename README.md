@@ -235,6 +235,9 @@ personal-development-app/
   - [x] Deployment guide & Docker setup
   - [x] Production-ready configuration
 - [ ] Final polish & merge to main (Week 6)
+  - [x] Code cleanup & refactoring (Week 6.1)
+  - [ ] Database schema & architecture docs (Week 6.2)
+  - [ ] Merge branches & create release (Week 6.3)
 
 **Deliverable:** Fully functional habit tracker used by 50+ beta users
 
