@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { analyticsAPI } from '../services/api';
+import { analyticsAPI, exportAPI } from '../services/api';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -33,6 +33,9 @@ const AnalyticsPage = () => {
   const [monthlyData, setMonthlyData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [exporting, setExporting] = useState({ csv: false, json: false });
+  const [exportMessage, setExportMessage] = useState(null);
+  const [exportError, setExportError] = useState(null);
 
   useEffect(() => {
     fetchAnalytics();
@@ -57,6 +60,52 @@ const AnalyticsPage = () => {
       setError('Failed to load analytics data. Please try again.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const getFilenameFromHeader = (contentDisposition, fallback) => {
+    if (!contentDisposition) {
+      return fallback;
+    }
+
+    const filenameMatch = contentDisposition.match(/filename="?([^";]+)"?/i);
+    if (filenameMatch?.[1]) {
+      return filenameMatch[1];
+    }
+
+    return fallback;
+  };
+
+  const handleExport = async (type) => {
+    setExportMessage(null);
+    setExportError(null);
+    setExporting((prev) => ({ ...prev, [type]: true }));
+
+    try {
+      const response = type === 'csv' ? await exportAPI.csv() : await exportAPI.json();
+      const contentType = response.headers['content-type'] ||
+        (type === 'csv' ? 'text/csv' : 'application/json');
+      const filename = getFilenameFromHeader(
+        response.headers['content-disposition'],
+        `habits_export.${type}`
+      );
+
+      const blob = new Blob([response.data], { type: contentType });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+
+      setExportMessage(`Downloaded ${type.toUpperCase()} export.`);
+    } catch (err) {
+      console.error('Export failed:', err);
+      setExportError('Export failed. Please try again.');
+    } finally {
+      setExporting((prev) => ({ ...prev, [type]: false }));
     }
   };
 
@@ -140,10 +189,32 @@ const AnalyticsPage = () => {
     <div className="analytics-container">
       <div className="analytics-header">
         <h1>Analytics Dashboard</h1>
-        <button onClick={fetchAnalytics} className="btn-secondary">
-          Refresh
-        </button>
+        <div className="analytics-actions">
+          <button
+            onClick={() => handleExport('csv')}
+            className="btn-secondary"
+            disabled={exporting.csv}
+          >
+            {exporting.csv ? 'Downloading...' : 'Download CSV'}
+          </button>
+          <button
+            onClick={() => handleExport('json')}
+            className="btn-primary"
+            disabled={exporting.json}
+          >
+            {exporting.json ? 'Downloading...' : 'Download JSON'}
+          </button>
+          <button onClick={fetchAnalytics} className="btn-secondary">
+            Refresh
+          </button>
+        </div>
       </div>
+
+      {(exportMessage || exportError) && (
+        <div className={`export-status ${exportError ? 'error' : 'success'}`}>
+          {exportError || exportMessage}
+        </div>
+      )}
 
       {/* Overview Cards */}
       <div className="stats-grid">

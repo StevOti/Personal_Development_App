@@ -83,4 +83,10 @@ export const analyticsAPI = {
   monthly: () => api.get('/habits/analytics/monthly/'),
 };
 
+// Export endpoints
+export const exportAPI = {
+  csv: () => api.get('/habits/export/csv/', { responseType: 'blob' }),
+  json: () => api.get('/habits/export/json/', { responseType: 'blob' }),
+};
+
 export default api;

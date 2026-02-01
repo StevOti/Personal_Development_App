@@ -218,6 +218,122 @@ GET /api/habits/{id}/stats/
   }
   ```
 
+---
+
+### Analytics Endpoints
+
+#### Overview Analytics
+```http
+GET /api/habits/analytics/overview/
+```
+- **Description**: Get high-level analytics summary for current user
+- **Auth**: Required
+- **Response**:
+  ```json
+  {
+    "total_habits": 6,
+    "active_habits": 5,
+    "completion_rate": 84,
+    "current_streak": 7,
+    "longest_streak": 21,
+    "total_completions": 125,
+    "category_breakdown": [
+      {
+        "category": "health",
+        "category_label": "Health",
+        "habit_count": 2,
+        "total_completions": 45
+      }
+    ]
+  }
+  ```
+
+#### Weekly Analytics
+```http
+GET /api/habits/analytics/weekly/
+```
+- **Description**: Get last 7 days completion statistics
+- **Auth**: Required
+- **Response**:
+  ```json
+  {
+    "daily_data": [
+      {
+        "date": "2026-01-27",
+        "completions": 3,
+        "completion_rate": 60
+      }
+    ]
+  }
+  ```
+
+#### Monthly Analytics
+```http
+GET /api/habits/analytics/monthly/
+```
+- **Description**: Get current month statistics
+- **Auth**: Required
+- **Response**:
+  ```json
+  {
+    "year": 2026,
+    "month": 2,
+    "total_habits": 6,
+    "total_completions": 52,
+    "completion_rate": 78
+  }
+  ```
+
+---
+
+### Export Endpoints
+
+#### Export CSV
+```http
+GET /api/habits/export/csv/
+```
+- **Description**: Download all habits and logs as CSV
+- **Auth**: Required
+- **Response**: CSV file download
+- **Headers**:
+  - `Content-Type: text/csv`
+  - `Content-Disposition: attachment; filename="habits_export_YYYYMMDD_HHMMSS.csv"`
+
+#### Export JSON
+```http
+GET /api/habits/export/json/
+```
+- **Description**: Download all habits and logs as JSON
+- **Auth**: Required
+- **Response**: JSON file download
+- **Headers**:
+  - `Content-Type: application/json`
+  - `Content-Disposition: attachment; filename="habits_export_YYYYMMDD_HHMMSS.json"`
+- **Response Body**:
+  ```json
+  {
+    "user": "john_doe",
+    "export_date": "2026-02-02T14:32:10.123456",
+    "habits": [
+      {
+        "name": "Morning Meditation",
+        "category": "health",
+        "frequency": "daily",
+        "goal_count": 1,
+        "start_date": "2026-02-01",
+        "streak_count": 3,
+        "longest_streak": 5,
+        "logs": [
+          {
+            "date": "2026-02-01",
+            "completed": true
+          }
+        ]
+      }
+    ]
+  }
+  ```
+
 #### Update Log
 ```http
 PATCH /api/habit-logs/{id}/

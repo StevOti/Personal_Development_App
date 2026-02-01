@@ -219,14 +219,16 @@ personal-development-app/
 ## 🚀 Development Roadmap
 
 ### Phase 1: MVP - Habit Tracker (Weeks 1-6)
-**Branch:** `feature/habits-mvp`
+**Branch:** `feature/habits-mvp` (active) / `additional-functionalities` (in progress)
 **Goal:** Core habit tracking with smart suggestions
 
-- [ ] Project setup & authentication (Week 1)
-- [ ] Habit CRUD & categorization (Week 2)
-- [ ] Habit suggestions algorithm (Week 2-3)
-- [ ] Daily tracking interface (Week 3)
-- [ ] Streak tracking & analytics (Week 4)
+- [x] Project setup & authentication (Week 1)
+- [x] Habit CRUD & categorization (Week 2)
+- [x] Daily tracking interface (Week 3)
+- [x] Streak tracking & analytics (Week 4)
+  - [x] Analytics dashboard with charts (Week 4.1-4.2)
+  - [x] Navigation & UI polish (Week 4.3)
+  - [x] Data export (CSV/JSON) (Week 4.4)
 - [ ] Beta testing & refinement (Week 5-6)
 
 **Deliverable:** Fully functional habit tracker used by 50+ beta users
@@ -584,72 +586,96 @@ flake8 backend/
 - Habit stacking setup functional
 - 50+ users can complete onboarding
 
-### Week 4: Daily Tracking & Streaks
-**Branch:** `feature/habits-mvp`
+### Week 4: Daily Tracking & Streaks ✅
+**Branch:** `feature/habits-mvp` + `additional-functionalities`
+**Status:** COMPLETED
 
-#### Backend Tasks:
-1. **Daily Tracking Endpoints**
-   - `GET /api/habits/daily/` - Today's habits
+#### Backend Tasks: ✅
+1. **Daily Tracking Endpoints** ✅
    - `POST /api/habits/{id}/log/` - Log completion
-   - `GET /api/habits/{id}/streak/` - Get streak info
+   - `GET /api/habits/{id}/stats/` - Get streak info
 
-2. **Streak Logic**
+2. **Streak Logic** ✅
    ```python
-   # models.py or services.py
+   # models.py - Implemented
    - Calculate current streak (unbroken days)
-   - Calculate best streak (all-time)
-   - Calculate completion percentage (last 30 days)
-   - Identify pattern times (when user succeeds most)
+   - Calculate longest streak (all-time)
+   - Calculate completion percentage
    ```
 
-3. **Analytics Endpoints**
-   - `GET /api/habits/{id}/analytics/` - Habit stats
-   - Includes: streaks, completion %, patterns, insights
+3. **Analytics Endpoints** ✅
+   - `GET /api/habits/analytics/overview/` - High-level stats
+   - `GET /api/habits/analytics/weekly/` - Last 7 days
+   - `GET /api/habits/analytics/monthly/` - Current month
 
-#### Frontend Tasks:
-1. **Daily Dashboard**
-   - Today's habits list
-   - Habit check-off functionality
+4. **Export Endpoints** ✅
+   - `GET /api/habits/export/csv/` - CSV download
+   - `GET /api/habits/export/json/` - JSON download
+
+#### Frontend Tasks: ✅
+1. **Daily Dashboard** ✅
+   - Habits list with pagination
+   - Habit detail page with log functionality
    - Visual feedback on completion
    - Streak counter display
 
-2. **Analytics View**
-   - Habit performance chart
-   - Streak progress
-   - Completion percentage
-   - Time-of-day patterns
+2. **Analytics View** ✅
+   - Full analytics dashboard with Chart.js
+   - Weekly progress line chart
+   - Category breakdown doughnut chart
+   - Navigation with logout button
+   - Analytics preview card on home page
 
-#### Deliverables:
+3. **Export Functionality** ✅
+   - CSV/JSON download buttons
+   - File download with proper headers
+   - Success/error feedback
+
+#### Deliverables: ✅
 - Daily tracking working smoothly
 - Accurate streak calculations
 - Mobile-responsive dashboard
 - Visual motivation elements
+- **92 backend tests passing (100%)**
 
-### Week 5: Refinement & Beta Testing
-**Branch:** `feature/habits-mvp`
+### Week 5: Refinement & Beta Testing 🚧
+**Branch:** `feature/habits-mvp` / `additional-functionalities`
+**Status:** READY TO START
 
 #### Tasks:
-1. **Bug Fixes**
-   - User feedback resolution
-   - Edge case handling
-   - Performance optimization
+1. **Testing & Quality Assurance**
+   - [ ] Manual QA with beta testing checklist
+   - [ ] E2E tests with Playwright (optional)
+   - [ ] Performance testing (load time, API response)
+   - [ ] Mobile responsiveness testing (all pages)
+   - [ ] Cross-browser testing (Chrome, Firefox, Safari, Edge)
 
-2. **Testing**
-   - E2E tests with Cypress/Playwright
-   - Performance testing
-   - Mobile responsiveness testing
-   - Notification timing tests (when applicable)
+2. **Bug Fixes & Edge Cases**
+   - [ ] Test empty states (new user with no data)
+   - [ ] Test with large datasets (100+ habits, 1000+ logs)
+   - [ ] Timezone handling verification
+   - [ ] Error boundary implementation
+   - [ ] Loading state consistency
 
-3. **Beta Deployment**
-   - Deploy to staging server
-   - Create beta tester access group
-   - Setup feedback collection
-   - Monitor for errors/crashes
+3. **Documentation**
+   - [x] API documentation (analytics + export endpoints added)
+   - [x] Manual QA checklist added to TESTING_GUIDE.md
+   - [ ] User guide / onboarding flow documentation
+   - [ ] Deployment guide (staging/production)
+
+4. **Beta Deployment Preparation**
+   - [ ] Environment variables configuration (.env.example)
+   - [ ] Docker compose for production
+   - [ ] Staging deployment (Heroku/AWS/DigitalOcean)
+   - [ ] Beta tester signup form
+   - [ ] Feedback collection mechanism (Typeform/Google Forms)
+   - [ ] Error monitoring setup (Sentry)
 
 #### Deliverables:
 - Stable, production-ready habit tracker
-- 50+ beta users actively using app
-- Comprehensive test suite
+- Comprehensive test coverage (manual + automated)
+- Staging environment deployed
+- Ready for beta user onboarding
 
 ### Week 6: Documentation & Preparation for Phase 2
 **Branch:** `feature/habits-mvp`
