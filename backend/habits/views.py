@@ -57,12 +57,20 @@ class HabitViewSet(viewsets.ModelViewSet):
             "notes": "Optional notes"
         }
         """
+        from django.db import IntegrityError
+
         habit = self.get_object()
         serializer = HabitLogSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save(habit=habit)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            try:
+                serializer.save(habit=habit)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            except IntegrityError:
+                return Response(
+                    {"detail": "A log for this habit already exists for this date."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=["get"], permission_classes=[IsAuthenticated])
