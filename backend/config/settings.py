@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",  # For logout/token blacklisting
     "corsheaders",
+    "drf_spectacular",  # OpenAPI/Swagger documentation
     # Local apps
     "core",
     "habits",
@@ -142,6 +143,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 20,
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 # JWT Settings
@@ -194,3 +196,20 @@ CORS_ALLOW_HEADERS = [
     "x-csrftoken",
     "x-requested-with",
 ]
+
+# ==============================================================================
+# DRF-SPECTACULAR (OpenAPI/Swagger) CONFIGURATION
+# ==============================================================================
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Personal Development App API",
+    "DESCRIPTION": "REST API for habit tracking and personal development",
+    "VERSION": "1.0.0",
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
+    "CONTACT": {"name": "Support", "email": "support@personaldevelopment.app"},
+    "LICENSE": {"name": "MIT"},
+    "SERVERS": [
+        {"url": "http://localhost:8000", "description": "Local Development"},
+        {"url": "https://api.personaldevelopment.app", "description": "Production"},
+    ],
+}
