@@ -3,10 +3,11 @@ Models for habit tracking module.
 Week 2: Habit and HabitLog with streak calculations.
 """
 
-from django.db import models
+from datetime import date, timedelta
+
 from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator
-from datetime import date, timedelta
+from django.db import models
 
 User = get_user_model()
 

@@ -3,13 +3,15 @@ Integration tests for complete user workflows.
 Week 3: Tests full application flow from auth to habit management.
 """
 
-import pytest
 from datetime import date, timedelta
+
+import pytest
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from rest_framework.test import APIClient
 from rest_framework import status
-from habits.models import Habit, HabitLog, HabitCategory, HabitFrequency
+from rest_framework.test import APIClient
+
+from habits.models import Habit, HabitCategory, HabitFrequency, HabitLog
 
 User = get_user_model()
 

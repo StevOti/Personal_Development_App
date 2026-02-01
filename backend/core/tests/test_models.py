@@ -4,8 +4,9 @@ Week 1: Tests for user creation, authentication, and profile.
 """
 
 import pytest
-from core.models import UserProfile
 from django.contrib.auth import get_user_model
+
+from core.models import UserProfile
 
 User = get_user_model()
 

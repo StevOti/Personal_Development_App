@@ -3,6 +3,8 @@ Views for core app (authentication endpoints).
 Week 1: JWT authentication - signup, login, logout.
 """
 
+import logging
+
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -11,6 +13,8 @@ from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .serializers import UserRegisterSerializer, UserSerializer
+
+logger = logging.getLogger(__name__)
 
 
 class SignupView(APIView):
@@ -25,6 +29,7 @@ class SignupView(APIView):
         serializer = UserRegisterSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
+            logger.info(f"User registered: user_id={user.id}, username={user.username}")
 
             # Generate JWT tokens
             refresh = RefreshToken.for_user(user)
@@ -38,6 +43,7 @@ class SignupView(APIView):
                 status=status.HTTP_201_CREATED,
             )
 
+        logger.warning(f"User registration failed: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -53,6 +59,7 @@ class LogoutView(APIView):
         try:
             refresh_token = request.data.get("refresh")
             if not refresh_token:
+                logger.warning(f"Logout attempt without token: user={request.user.id}")
                 return Response(
                     {"error": "Refresh token is required"},
                     status=status.HTTP_400_BAD_REQUEST,
@@ -60,16 +67,19 @@ class LogoutView(APIView):
 
             token = RefreshToken(refresh_token)
             token.blacklist()
+            logger.info(f"User logged out: user={request.user.id}")
 
             return Response(
                 {"message": "Successfully logged out"},
                 status=status.HTTP_205_RESET_CONTENT,
             )
         except TokenError as e:
+            logger.warning(f"Logout with invalid token: user={request.user.id}")
             return Response(
                 {"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST
             )
         except Exception as e:
+            logger.error(f"Logout error: user={request.user.id}, error={str(e)}")
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 

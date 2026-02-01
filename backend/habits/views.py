@@ -3,17 +3,20 @@ API views for habit tracking endpoints.
 Provides CRUD operations for habits and habit logging.
 """
 
-from rest_framework import viewsets, status
-from rest_framework.decorators import action
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+import logging
+
+from django.db import IntegrityError
 from django.shortcuts import get_object_or_404
+from rest_framework import status, viewsets
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
 from habits.models import Habit, HabitLog
-from habits.serializers import (
-    HabitSerializer,
-    HabitListSerializer,
-    HabitLogSerializer,
-)
+from habits.serializers import (HabitListSerializer, HabitLogSerializer,
+                                HabitSerializer)
+
+logger = logging.getLogger(__name__)
 
 
 class HabitViewSet(viewsets.ModelViewSet):
@@ -57,16 +60,22 @@ class HabitViewSet(viewsets.ModelViewSet):
             "notes": "Optional notes"
         }
         """
-        from django.db import IntegrityError
-
         habit = self.get_object()
         serializer = HabitLogSerializer(data=request.data)
 
         if serializer.is_valid():
             try:
-                serializer.save(habit=habit)
+                log = serializer.save(habit=habit)
+                logger.info(
+                    f"Habit log created: user={request.user.id}, "
+                    f"habit={habit.id}, date={log.date}, completed={log.completed}"
+                )
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             except IntegrityError:
+                logger.warning(
+                    f"Duplicate log attempt: user={request.user.id}, "
+                    f"habit={habit.id}, date={request.data.get('date')}"
+                )
                 return Response(
                     {"detail": "A log for this habit already exists for this date."},
                     status=status.HTTP_400_BAD_REQUEST,

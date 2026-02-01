@@ -3,13 +3,15 @@ Unit tests for habit API endpoints (CRUD operations).
 Week 2: Tests for habit list, create, update, delete, daily tracking.
 """
 
-import pytest
 from datetime import date, timedelta
+
+import pytest
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from rest_framework.test import APIClient
 from rest_framework import status
-from habits.models import Habit, HabitLog, HabitCategory, HabitFrequency
+from rest_framework.test import APIClient
+
+from habits.models import Habit, HabitCategory, HabitFrequency, HabitLog
 
 User = get_user_model()
 

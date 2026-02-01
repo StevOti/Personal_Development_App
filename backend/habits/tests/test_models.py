@@ -3,11 +3,13 @@ Unit tests for habits models (Habit, HabitLog).
 Week 2: Habit tracking with streaks and logging.
 """
 
+from datetime import date, datetime, timedelta
+
 import pytest
-from datetime import datetime, timedelta, date
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
-from habits.models import Habit, HabitLog, HabitCategory, HabitFrequency
+
+from habits.models import Habit, HabitCategory, HabitFrequency, HabitLog
 
 User = get_user_model()
 

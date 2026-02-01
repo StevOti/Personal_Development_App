@@ -4,6 +4,7 @@ Week 2: Habit and HabitLog serializers with streak calculations.
 """
 
 from rest_framework import serializers
+
 from habits.models import Habit, HabitLog
 
 

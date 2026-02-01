@@ -4,12 +4,10 @@ Week 1: Tests for serializer validation, password hashing, etc.
 """
 
 import pytest
-from core.serializers import (
-    UserProfileSerializer,
-    UserRegisterSerializer,
-    UserSerializer,
-)
 from django.contrib.auth import get_user_model
+
+from core.serializers import (UserProfileSerializer, UserRegisterSerializer,
+                              UserSerializer)
 
 User = get_user_model()
 

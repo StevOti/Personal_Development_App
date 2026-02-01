@@ -3,11 +3,14 @@ Unit tests for habit serializers.
 Week 2: Habit and HabitLog serializer validation.
 """
 
-import pytest
 from datetime import date, timedelta
+
+import pytest
 from django.contrib.auth import get_user_model
-from habits.models import Habit, HabitLog, HabitCategory, HabitFrequency
-from habits.serializers import HabitSerializer, HabitLogSerializer, HabitListSerializer
+
+from habits.models import Habit, HabitCategory, HabitFrequency, HabitLog
+from habits.serializers import (HabitListSerializer, HabitLogSerializer,
+                                HabitSerializer)
 
 User = get_user_model()
 

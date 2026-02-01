@@ -4,11 +4,13 @@ Week 2: CRUD endpoints for habits and habit logs.
 Week 4.1: Analytics endpoints.
 """
 
-from django.urls import path, include
+from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-from habits.views import HabitViewSet, HabitLogViewSet
-from habits.analytics import analytics_overview, analytics_weekly, analytics_monthly
+
+from habits.analytics import (analytics_monthly, analytics_overview,
+                              analytics_weekly)
 from habits.export import export_csv, export_json
+from habits.views import HabitLogViewSet, HabitViewSet
 
 app_name = "habits"
 

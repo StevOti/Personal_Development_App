@@ -4,9 +4,10 @@ Week 1: JWT authentication routes.
 """
 
 from django.urls import path
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import (TokenObtainPairView,
+                                            TokenRefreshView)
 
-from .views import LogoutView, SignupView, ProfileView
+from .views import LogoutView, ProfileView, SignupView
 
 app_name = "core"
 
