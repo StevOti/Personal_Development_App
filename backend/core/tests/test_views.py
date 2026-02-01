@@ -19,7 +19,7 @@ class TestSignupView:
     def test_signup_successful(self):
         """Test successful user registration."""
         client = APIClient()
-        url = reverse("signup")
+        url = reverse("core:signup")
         data = {
             "username": "newuser",
             "email": "newuser@example.com",
@@ -40,7 +40,7 @@ class TestSignupView:
     def test_signup_password_mismatch(self):
         """Test registration fails with mismatched passwords."""
         client = APIClient()
-        url = reverse("signup")
+        url = reverse("core:signup")
         data = {
             "username": "newuser",
             "email": "newuser@example.com",
@@ -57,7 +57,7 @@ class TestSignupView:
         User.objects.create_user(username="existinguser", email="existing@example.com")
 
         client = APIClient()
-        url = reverse("signup")
+        url = reverse("core:signup")
         data = {
             "username": "existinguser",
             "email": "newuser@example.com",
@@ -81,7 +81,7 @@ class TestLoginView:
         )
 
         client = APIClient()
-        url = reverse("login")
+        url = reverse("core:login")
         data = {"username": "testuser", "password": "testpass123"}
         response = client.post(url, data, format="json")
 
@@ -96,7 +96,7 @@ class TestLoginView:
         )
 
         client = APIClient()
-        url = reverse("login")
+        url = reverse("core:login")
         data = {"username": "testuser", "password": "wrongpassword"}
         response = client.post(url, data, format="json")
 
@@ -105,7 +105,7 @@ class TestLoginView:
     def test_login_nonexistent_user(self):
         """Test login fails with non-existent user."""
         client = APIClient()
-        url = reverse("login")
+        url = reverse("core:login")
         data = {"username": "nonexistent", "password": "testpass123"}
         response = client.post(url, data, format="json")
 
@@ -124,13 +124,13 @@ class TestTokenRefreshView:
 
         client = APIClient()
         # Get tokens first
-        login_url = reverse("login")
+        login_url = reverse("core:login")
         login_data = {"username": "testuser", "password": "testpass123"}
         login_response = client.post(login_url, login_data, format="json")
         refresh_token = login_response.data["refresh"]
 
         # Now refresh the token
-        refresh_url = reverse("token_refresh")
+        refresh_url = reverse("core:token_refresh")
         refresh_data = {"refresh": refresh_token}
         response = client.post(refresh_url, refresh_data, format="json")
 
@@ -141,7 +141,7 @@ class TestTokenRefreshView:
     def test_refresh_token_invalid(self):
         """Test refresh fails with invalid token."""
         client = APIClient()
-        refresh_url = reverse("token_refresh")
+        refresh_url = reverse("core:token_refresh")
         refresh_data = {"refresh": "invalid_token_string"}
         response = client.post(refresh_url, refresh_data, format="json")
 
@@ -160,13 +160,13 @@ class TestLogoutView:
 
         client = APIClient()
         # Login first
-        login_url = reverse("login")
+        login_url = reverse("core:login")
         login_data = {"username": "testuser", "password": "testpass123"}
         login_response = client.post(login_url, login_data, format="json")
         refresh_token = login_response.data["refresh"]
 
         # Logout
-        logout_url = reverse("logout")
+        logout_url = reverse("core:logout")
         client.credentials(HTTP_AUTHORIZATION=f'Bearer {login_response.data["access"]}')
         logout_data = {"refresh": refresh_token}
         response = client.post(logout_url, logout_data, format="json")
@@ -174,7 +174,7 @@ class TestLogoutView:
         assert response.status_code == status.HTTP_205_RESET_CONTENT
 
         # Try to use the blacklisted token
-        refresh_url = reverse("token_refresh")
+        refresh_url = reverse("core:token_refresh")
         refresh_response = client.post(
             refresh_url, {"refresh": refresh_token}, format="json"
         )
@@ -183,7 +183,7 @@ class TestLogoutView:
     def test_logout_without_authentication(self):
         """Test logout requires authentication."""
         client = APIClient()
-        logout_url = reverse("logout")
+        logout_url = reverse("core:logout")
         logout_data = {"refresh": "some_token"}
         response = client.post(logout_url, logout_data, format="json")
 

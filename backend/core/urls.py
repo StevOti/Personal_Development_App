@@ -12,9 +12,9 @@ app_name = "core"
 
 urlpatterns = [
     # Authentication endpoints
-    path("auth/signup/", SignupView.as_view(), name="register"),
-    path("auth/login/", TokenObtainPairView.as_view(), name="login"),
-    path("auth/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    path("auth/logout/", LogoutView.as_view(), name="logout"),
-    path("auth/profile/", ProfileView.as_view(), name="profile"),
+    path("signup/", SignupView.as_view(), name="signup"),
+    path("login/", TokenObtainPairView.as_view(), name="login"),
+    path("refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("logout/", LogoutView.as_view(), name="logout"),
+    path("profile/", ProfileView.as_view(), name="profile"),
 ]

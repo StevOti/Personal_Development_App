@@ -14,6 +14,7 @@ export function HabitDetailPage() {
   const [logDate, setLogDate] = useState(new Date().toISOString().split('T')[0]);
   const [logNotes, setLogNotes] = useState('');
   const [loggingLoading, setLoggingLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     fetchHabitDetails();
@@ -40,14 +41,18 @@ export function HabitDetailPage() {
   const handleLogCompletion = async (e) => {
     e.preventDefault();
     setLoggingLoading(true);
+    setError(null);
     try {
       await habitAPI.log(id, {
-        log_date: logDate,
+        date: logDate,
+        completed: true,
         notes: logNotes,
       });
       setLogDate(new Date().toISOString().split('T')[0]);
       setLogNotes('');
       setShowLogForm(false);
+      setSuccessMessage('✅ Completion logged successfully!');
+      setTimeout(() => setSuccessMessage(''), 3000);
       fetchHabitDetails(); // Refresh to see updated stats
     } catch (err) {
       setError(err.response?.data?.detail || 'Failed to log completion');
@@ -74,6 +79,7 @@ export function HabitDetailPage() {
     <div className="habit-detail-container">
       <button className="btn-back" onClick={() => navigate('/habits')}>
         ← Back to Habits
+      {successMessage && <div className="success-message">{successMessage}</div>}
       </button>
 
       {error && <div className="error-message">{error}</div>}

@@ -30,7 +30,7 @@ class TestAuthenticationFlow:
             "password2": "SecurePass123!",
         }
 
-        response = client.post(reverse("core:register"), register_data, format="json")
+        response = client.post(reverse("core:signup"), register_data, format="json")
         assert response.status_code == status.HTTP_201_CREATED
         assert "access" in response.data
         assert "refresh" in response.data
@@ -67,7 +67,7 @@ class TestAuthenticationFlow:
             "password2": "SecurePass123!",
         }
 
-        response = client.post(reverse("core:register"), register_data, format="json")
+        response = client.post(reverse("core:signup"), register_data, format="json")
         refresh_token = response.data["refresh"]
 
         # Use refresh token to get new access token
